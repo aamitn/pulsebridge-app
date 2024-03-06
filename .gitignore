@@ -3,7 +3,8 @@
 /build/
 /build/intermediates/javac/genericDebug/compileGenericDebugJavaWithJavac/classes/
 /build/intermediates/javac/genericDebugUnitTest/compileGenericDebugUnitTestJavaWithJavac/classes/
-/generic/
+/generic/**
 /local.properties
 /*.log
 *.iml
+/generic/
