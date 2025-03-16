@@ -2,7 +2,7 @@
 
 [![pulsebridge-app build and test](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml/badge.svg)](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml)
 
-Download APKs from: https://github.com/medic/pulsebridge-gateway-app/releases
+Download APKs from: https://github.com/aamitn/pulsebridge-app/releases/download/1.1.5/pulsebridge-app-SNAPSHOT-generic-release.apk
 
 ---
 
