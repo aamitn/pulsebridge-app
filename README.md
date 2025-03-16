@@ -1,5 +1,7 @@
 ## Pulsebridge Gateway App
 
+This is the Client Application for [PulseBridge Gateway/Server](https://github.com/aamitn/pulsebridge-gateway)
+
 [![pulsebridge-app build and test](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml/badge.svg)](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml)
 
 Download APKs from: https://github.com/aamitn/pulsebridge-app/releases/download/1.1.5/pulsebridge-app-SNAPSHOT-generic-release.apk
