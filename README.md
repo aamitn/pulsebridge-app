@@ -32,8 +32,7 @@ Follow these three simple steps to get started with PulseBridge Gateway:
 
 ## Installation
 
-Install the latest APK from https://github.com/medic/pulsebridge-gateway-app/releases
-
+Install the latest APK from https://github.com/aamitn/pulsebridge-app/releases/download/1.1.5/pulsebridge-app-SNAPSHOT-generic-release.apk
 ## Configuration
 
 ### PulseBridge App
