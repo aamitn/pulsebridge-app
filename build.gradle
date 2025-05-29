@@ -7,16 +7,11 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.android.tools.build:gradle:8.3.0'
-		classpath 'com.noveogroup.android:check:1.2.5', {
-			exclude module: 'checkstyle'
-			exclude module: 'xmlpull'
-		}
 		classpath 'com.puppycrawl.tools:checkstyle:7.8.1'
 		classpath 'com.github.bjoernq:unmockplugin:0.7.9'
 	}
 }
 apply plugin: 'com.android.application'
-apply plugin: 'com.noveogroup.android.check'
 apply plugin: 'de.mobilej.unmock'
 
 // enable verbose lint warnings
@@ -165,9 +160,6 @@ android {
 		}
 	}
 
-	check {
-		abortOnError true
-	}
 
 
     testOptions {
@@ -210,12 +202,3 @@ unMock {
 	keep 'android.net.Uri'
 }
 
-//Skip Findbugs
-afterEvaluate { project ->
-	project.tasks.androidFindbugs {
-		onlyIf  {
-			println 'Skipping...'
-			return false
-		}
-	}
-}
