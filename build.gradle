@@ -94,8 +94,8 @@ def getVersionName = {
 }
 
 android {
-	compileSdkVersion 30
-	buildToolsVersion '30.0.3'
+	compileSdkVersion 33
+	// buildToolsVersion '34.0.0'
     packagingOptions {
         resources {
             excludes += ['META-INF/LICENSE', 'META-INF/NOTICE']
@@ -105,7 +105,7 @@ android {
 
     defaultConfig {
 		minSdkVersion 16
-		targetSdkVersion 29	// 30+ causes instrumentation tests to fail when uninstalling the app from the device
+		targetSdkVersion 33	// 30+ causes instrumentation tests to fail when uninstalling the app from the device
 
 		versionCode getVersionCode()
 		versionName getVersionName()
