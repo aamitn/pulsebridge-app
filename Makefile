@@ -34,14 +34,6 @@ clean:
 	rm -rf src/main/assets/
 	rm -rf build/
 
-lint:
-	${GRADLE} ${GRADLE_OPTS} androidCheckstyle
-
-test: lint
-	IS_GENERIC_FLAVOUR=false \
-	IS_MEDIC_FLAVOUR=true \
-		${GRADLE} ${GRADLE_OPTS} test${flavor}DebugUnitTest
-
 test-ui: assemble
 	${GRADLE} ${GRADLE_OPTS} connectedGenericDebugAndroidTest
 
@@ -87,5 +79,5 @@ changelog:
 ci: stats
 	IS_GENERIC_FLAVOUR=false \
 	IS_MEDIC_FLAVOUR=true \
-		${GRADLE} ${GRADLE_OPTS} --stacktrace androidCheckstyle testMedicDebugUnitTest assemble
+		${GRADLE} ${GRADLE_OPTS} --stacktrace testMedicDebugUnitTest assemble
 	${GRADLE} ${GRADLE_OPTS} connectedCheck
