@@ -90,7 +90,7 @@ def getVersionCode = {
 }
 
 def getVersionName = {
-  System.env.GIT_TAG ?: 'v1.1.31'
+  System.env.GIT_TAG ?: 'v1.1.32'
 }
 
 android {
@@ -109,7 +109,7 @@ android {
 
 		versionCode getVersionCode()
 		// versionName getVersionName()
-		versionName "1.1.31"
+		versionName "1.1.32"
 		archivesBaseName = "${project.name}-${versionName}"
 
 		testInstrumentationRunner 'medic.gateway.alert.test.WakingJUnitRunner'
