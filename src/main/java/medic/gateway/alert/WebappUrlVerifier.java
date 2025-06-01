@@ -40,9 +40,8 @@ public class WebappUrlVerifier {
 	}
 
 	private WebappUrlVerififcation handleJsonResponse(String webappUrl, JsonResponse response) {
-		if(response.json.optBoolean("pulsebridge-gateway"))
+		if( response.json.optBoolean("pulsebridge-gateway") || response.json.optBoolean("medic-gateway") )
 			return WebappUrlVerififcation.ok(webappUrl);
-
 		return WebappUrlVerififcation.failure(webappUrl, errWebappUrl_appNotFound);
 	}
 

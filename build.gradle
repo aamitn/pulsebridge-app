@@ -176,12 +176,12 @@ android {
 	flavorDimensions 'brand'
 	productFlavors {
 		generic {
-			applicationId = 'medic.gateway.alert.generic'
+			applicationId = 'pulsebridge.gateway.alert.generic'
 			buildConfigField "boolean", "IS_GENERIC_FLAVOUR", "true"
 			buildConfigField "boolean", "IS_MEDIC_FLAVOUR", "false"
 		}
 		medic {
-			applicationId = 'medic.gateway.alert'
+			applicationId = 'pulsebridge.gateway.alert'
 			buildConfigField "boolean", "IS_GENERIC_FLAVOUR", "false"
 			buildConfigField "boolean", "IS_MEDIC_FLAVOUR", "true"
 		}

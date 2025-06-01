@@ -2,12 +2,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 	<string name="app_name">PulseBridge</string>
 
-	<string name="txtWebappUrl">PulseBridge Server URL</string>
+	<string name="txtWebappUrl">PulseBridge Server Credential URL</string>
 	<string name="errWebappUrl_serverNotFound">unable to contact PulseBridge server</string>
 	<string name="errWebappUrl_unauthorised">authorisation failed</string>
 	<string name="errWebappUrl_appNotFound">PulseBridge server is not responding in expected way</string>
 	<string name="errWebappUrl_badJson">unexpected response content</string>
 	<string name="errWebappUrl_badSsl">SSL connection failed</string>
+	<string name="defaultServerUrlText">Default Server : </string>
+	<string name="defaultServerUrl">https://sms.bitmutex.com </string>
+
+	<string name="instructions">CLICK \"Generate Credentials\" \-\-> In browser, COPY the url under \"App Configuration\" \-\-> PASTE it above</string>
 
 	<string name="txtWebappInstanceName">Instance name</string>
 	<string name="txtWebappPassword"/>

@@ -1,6 +1,9 @@
 package medic.gateway.alert;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -338,6 +342,56 @@ public class SettingsDialogActivity extends Activity {
 			if(a == null) throw new IllegalStateException("SaveTask.doInBackground() :: no parent context available.");
 
 			a.handleSaveResult(result);
+		}
+	}
+
+
+	/**
+	 * Launches a web browser with a predefined URL.
+	 * This method bypasses dynamic URL construction from input fields.
+	 *
+	 * @param view The View that triggered this method (e.g., the "Launch Browser" button).
+	 */
+	public void launchBrowser(View view) {
+		// Define your predefined URL here.
+		final String predefinedUrl = "https://sms.bitmutex.com/?to=0123456789&message=Tests"; // <--- SET YOUR DESIRED URL HERE
+
+		String urlString = predefinedUrl; // Use the predefined URL
+
+		// Log the URL being opened
+		log("Attempting to launch browser with predefined URL: %s", redactUrl(urlString));
+
+		try {
+			// Create an Intent to view the URI
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+
+			// Set chrome browser component explicitly
+			browserIntent.setComponent(new ComponentName("com.android.chrome", "com.google.android.apps.chrome.Main"));
+
+			// Check if there is an application available to handle this intent
+			if (browserIntent.resolveActivity(getPackageManager()) != null) {
+				startActivity(browserIntent);
+			} else {
+				// This block will be reached if Chrome (specifically the component specified) is not found.
+				logException(new IllegalStateException("Chrome browser component not found or cannot be launched."),
+						"Failed to launch Chrome directly for URL: %s", redactUrl(urlString));
+				Toast.makeText(this, "Chrome browser not found or cannot be launched.", Toast.LENGTH_LONG).show();
+
+				// OPTIONAL: Fallback to generic browser launch if specific Chrome launch fails
+				 Intent genericBrowserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+				 if (genericBrowserIntent.resolveActivity(getPackageManager()) != null) {
+				     startActivity(genericBrowserIntent);
+				     log("Falling back to generic browser launch for URL: %s", redactUrl(urlString));
+				 } else {
+				     logException(new IllegalStateException("No generic web browser found on device."),
+				             "Failed to launch any browser for URL: %s", redactUrl(urlString));
+				     Toast.makeText(this, "No web browser found on your device.", Toast.LENGTH_LONG).show();
+				}
+			}
+		} catch (Exception e) {
+			// Catch and log any errors that occur during intent creation or launch
+			logException(e, "Error launching browser for URL: %s", redactUrl(urlString));
+			Toast.makeText(this, "Error launching browser: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
 }

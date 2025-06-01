@@ -51,9 +51,9 @@ deploy-all: assemble-all
 		xargs -n1 ${ADB} install -r
 
 uninstall:
-	adb uninstall medic.gateway.alert
+	adb uninstall pulsebridge.gateway.alert
 uninstall-all: uninstall
-	adb uninstall medic.gateway.alert.generic
+	adb uninstall pulsebridge.gateway.alert.generic
 
 kill:
 	pkill -9 emulator64-arm
