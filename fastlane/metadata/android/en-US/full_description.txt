@@ -1,0 +1,1 @@
+Pulsebridge SMS Gateway is an android that lets your mobile to act as an SMS gateway in conjunction with Pulsebridge Gateway servers(which exposes SMS sending APIs),  and lets users to use their phone to send SMS using API from the application they are developing. Consider this as a testing no-cost alternative to Twillio.
