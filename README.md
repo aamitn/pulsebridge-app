@@ -255,7 +255,7 @@ To build locally and install to an attached android device:
 make 
 ```
 
-OR, generate release APK using 
+OR, generate release APK using Make
 
 ```plaintext
 make assemble-release
@@ -263,9 +263,20 @@ make assemble-release
 
 OR, build using gradle
 
-```plaintext
-gradlew build -x test
-```
+- All Releases
+    ```plaintext
+    gradlew build -x test
+    ```
+- Create Generic Release APK
+    ```plaintext
+    gradlew assembleGenericRelease  
+    ```
+- Create Generic Release AAB
+    ```plaintext
+    gradlew bundleGenericRelease
+    ```
+    **APK is generated in folder `.\build\outputs\apk\generic\release`**  
+    **AAB is generated in folder `.\build\outputs\bundle\genericRelease`**
 
 ### Tests
 
