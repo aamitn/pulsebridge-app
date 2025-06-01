@@ -1,6 +1,6 @@
 ## Pulsebridge Gateway App
 
-This is the Client Application for [PulseBridge Gateway/Server](https://github.com/aamitn/pulsebridge-gateway)
+This is the Client Application for communicating with [PulseBridge Gateway/Server](https://github.com/aamitn/pulsebridge-gateway)
 
 [![pulsebridge-app build and test](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml/badge.svg)](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml)
 
@@ -35,19 +35,25 @@ Follow these three simple steps to get started with PulseBridge Gateway:
 ## Installation
 
 Install the latest APK from https://github.com/aamitn/pulsebridge-app/releases/download/1.1.5/pulsebridge-app-SNAPSHOT-generic-release.apk
+
 ## Configuration
 
-### PulseBridge App
+### Generic/Pulsebridge Build
 
-If you're configuring `pulsebridge-gateway-app` for use with hosted [`pulsebridge-gateway webserver`](https://github.com/medic/cht-core), with a URL of e.g. `https://example.com` and a username of `user`and a password of `password`, fill in the settings as follows:
+If you're configuring `pulsebridge-gateway-app` for use with hosted [`pulsebridge-gateway webserver`](https://github.com/aamitn/pulsebridge-gateway), with a URL of e.g. which is hosted currently at `https://sms.bitmutex.com`, then go to the URL, click, `Setup Credentials`-> Copy the URL under `App Configuration`, paste in the android app settings, the URL is of the following format
+
+```plaintext
+WebappUrl: https://sms.bitmutex.com?id=<device_id>&h=<device_hash>
+```
+
+### CHT/Medic Build
+
+If you're configuring `pulsebridge-gateway-app` for use with hosted [`cht-gateway webserver`](https://github.com/medic/cht-core), with a URL of e.g. `https://example.com` and a username of `user`and a password of `password`, fill in the settings as follows:
 
 ```plaintext
 WebappUrl: https://user:passowrd@example.com/api/sms
 ```
 
-### Other
-
-If you're configuring `pulsebridge-gateway-app` for use with other services, you will need to use the _generic_ build of `pulsebridge-gateway-app`, and find out the value for _CHT URL_ from your tech support.
 
 ### CDMA Compatibility Mode
 
@@ -95,7 +101,10 @@ https://username:password@example.com/pulsebridge-gateway-api-endpoint
 
 ## Messages
 
-The entire API should be implemented by a web application server at a single endpoint, e.g. https://exmaple.com/pulsebridge-gateway-app-api-endpoint
+- The entire API should be implemented by a web application server at a single endpoint, e.g. https://example.com/pulsebridge-gateway-app-api-endpoint. 
+
+- Our Pulsebridge Gateway server is hosted at [https://sms.bitmutex.com](https://sms.bitmutex.com), navitage to this URL, click on `Setup Credentials`, Under `App Configuartion` copy the URL, and this URL for example [https://sms.bitmutex.com/?id=e34dc9c5549c313a&h=38721c](https://sms.bitmutex.com/?id=e34dc9c5549c313a&h=38721c) should provide the below `Expected Response`
+
 
 ### GET
 
@@ -225,13 +234,18 @@ Gateway will retry to send the SMS when any of these errors occurs: `RESULT_ERRO
 
 Development guides are available in the "Android" section of the [Community Health Toolkit Docs Site](https://docs.communityhealthtoolkit.org/core/guides/android/). You will find instructions of how to setup your development environment, build and test new features, how to work with "flavor" apps, release, publish... and so on.
 
-### `pulsebridge-gateway` ([Repo](hith))
-
-*   composer
+- ### `pulsebridge-gateway` ([Gateway-Web-Server-Repo](https://github.com/aamitn/pulsebridge-gateway))
+- ###   Composer, PHP
 
 ## Building locally
 
-More details of how to setup and build the app [here](https://docs.communityhealthtoolkit.org/core/guides/android/development-setup/). The following are the most common tasks:
+### Requirements
+- Java 17+ (OpenJDK versions work).
+- Android SDK, and optionally Android Studio.
+- The adb command for debugging and get the logs.
+- The source code. To run all the tests in the CHT Android app you need to clone this repo : `git clone https://github.com/aamitn/pulsebridge-app.git`
+- The make command.
+- If you are going to build a new flavor (CHT Android), you also need to have installed: head, xxd, openssl and apksigner.
 
 ### Build and install
 
@@ -309,7 +323,7 @@ Since Android 6.0 (marshmallow), permissions for sending and receiving SMS must 
 
 ## Copyright
 
-Copyright 2018-2024 Bitmutex Technologies \<support@bitmutex.com>
+Copyright 2018-2025 Bitmutex Technologies \<support@bitmutex.com>
 
 ## License
 
