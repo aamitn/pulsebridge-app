@@ -26,8 +26,6 @@ jobs:
       #FDROID FASTLANE METADATA VALIDATION
       - name: Validate Fastlane Supply Metadata
         uses: ashutoshgngwr/validate-fastlane-supply-metadata@v2
-        with:
-          fastlaneDir: fastlane/metadata/android/en-US/ # optional
 
     #  - name: Decrypt keystore
     #    run: openssl aes-256-cbc -K ${{ secrets.ANDROID_KEYSTORE_SSL_KEY }} -iv ${{ secrets.ANDROID_KEYSTORE_SSL_IV }} -in pulsebridge.jks.enc -out pulsebridge.jks -d
