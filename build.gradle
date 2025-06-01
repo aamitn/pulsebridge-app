@@ -90,7 +90,7 @@ def getVersionCode = {
 }
 
 def getVersionName = {
-  System.env.GIT_TAG ?: 'v1.1.30'
+  System.env.GIT_TAG ?: 'v1.1.31'
 }
 
 android {
@@ -108,7 +108,8 @@ android {
 		targetSdkVersion 34	// 30+ causes instrumentation tests to fail when uninstalling the app from the device
 
 		versionCode getVersionCode()
-		versionName getVersionName()
+		// versionName getVersionName()
+		versionName "1.1.31"
 		archivesBaseName = "${project.name}-${versionName}"
 
 		testInstrumentationRunner 'medic.gateway.alert.test.WakingJUnitRunner'
