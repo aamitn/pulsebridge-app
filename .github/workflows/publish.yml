@@ -32,25 +32,30 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - run: make assemble-release
+      
       - name: Build Release AAB
         run: ./gradlew bundleGenericRelease
+
       - name: Build Release APK
         run: ./gradlew assembleGenericRelease
+
       - name: Sign AAB with Jarsigner
         run: |
           # If your keypass is different from storepass, you'll need ANDROID_KEY_PASSWORD secret for it.
           jarsigner -keystore "${{ env.ANDROID_KEYSTORE_PATH }}" --storepass "${{ env.ANDROID_KEYSTORE_PASSWORD }}" ./build/outputs/bundle/genericRelease/*.aab key0
+     
       - name: Sign AAB with Jarsigner
         run: |
           # If your keypass is different from storepass, you'll need ANDROID_KEY_PASSWORD secret for it.
           jarsigner -keystore "${{ env.ANDROID_KEYSTORE_PATH }}" --storepass "${{ env.ANDROID_KEYSTORE_PASSWORD }}" ./build/outputs/apk/generic/release/*.apk key0
+
         env:
           GIT_TAG: ${{ github.ref_name }}
       - name: GitHub release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          draft: true
+          make_latest: true
           token: ${{ secrets.MY_GITHUB_TOKEN }}
           files: |
             ./build/outputs/apk/**/release/*.apk
