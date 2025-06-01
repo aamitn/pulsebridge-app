@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - run: yes | sdkmanager 'platforms;android-33'
+      - run: yes | sdkmanager 'platforms;android-34'
 
       #FDROID FASTLANE METADATA VALIDATION
       - name: Validate Fastlane Supply Metadata

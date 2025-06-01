@@ -60,7 +60,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - run: yes | sdkmanager 'platforms;android-33'
+      - run: yes | sdkmanager 'platforms;android-34'
     #  - name: Decrypt keystore
     #    run: openssl aes-256-cbc -K ${{ secrets.ANDROID_KEYSTORE_SSL_KEY }} -iv ${{ secrets.ANDROID_KEYSTORE_SSL_IV }} -in pulsebridge.jks.enc -out pulsebridge.jks -d
       - name: Make gradlew executables
@@ -73,5 +73,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
           files: ./build/outputs/apk/**/release/*.apk
