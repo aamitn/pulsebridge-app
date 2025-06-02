@@ -25,7 +25,6 @@ gradle.projectsEvaluated {
 }
 
 repositories {
-	// maven { url "${System.env.ANDROID_HOME}/extras/android/m2repository/" }
 	mavenCentral()
 	maven { url 'https://s3.amazonaws.com/repo.commonsware.com' }
 	google()
@@ -90,7 +89,7 @@ def getVersionCode = {
 }
 
 def getVersionName = {
-  System.env.GIT_TAG ?: 'v1.1.35'
+  System.env.GIT_TAG ?: 'v1.1.36'
 }
 
 android {
