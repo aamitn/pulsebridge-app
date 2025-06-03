@@ -62,32 +62,29 @@ jobs:
       - uses: android-actions/setup-android@v3
       - run: |
           echo "--- Running sdkmanager to install components ---"
-          # Ensure both platforms AND build-tools are installed.
-          # apksigner is part of build-tools.
           yes | sdkmanager 'platforms;android-34' 'build-tools;34.0.0' || { echo "sdkmanager failed. Check above logs for errors."; exit 1; }
 
-          echo "--- Debugging PATH and Android SDK location ---"
+          echo "--- Verifying apksigner and setting PATH ---"
           echo "ANDROID_HOME: ${ANDROID_HOME}"
-          echo "Current PATH: $PATH"
+          echo "Current PATH before update: $PATH"
 
-          # List contents of the build-tools directory to see what versions are installed
-          echo "Contents of ${ANDROID_HOME}/build-tools/:"
-          ls -la "${ANDROID_HOME}/build-tools/"
-
-          # Find the exact path to apksigner within build-tools
-          APKSIGNER_EXEC=$(find "${ANDROID_HOME}/build-tools/" -name "apksigner" -type f -print -quit) # Use -print -quit to get first match and stop
+          # Find the exact directory where apksigner executable resides
+          APKSIGNER_DIR=$(find "${ANDROID_HOME}/build-tools/" -name "apksigner" -type f -print -quit | xargs dirname)
           
-          if [ -z "$APKSIGNER_EXEC" ]; then
+          if [ -z "$APKSIGNER_DIR" ]; then
             echo "ERROR: apksigner executable not found in any build-tools version!"
             exit 1
           else
-            echo "Found apksigner executable at: $APKSIGNER_EXEC"
-            echo "Permissions of apksigner:"
-            ls -l "$APKSIGNER_EXEC"
-            # Ensure it's executable (should be by default, but doesn't hurt to be sure)
-            chmod +x "$APKSIGNER_EXEC"
+            echo "Found apksigner directory: $APKSIGNER_DIR"
+            echo "Permissions of apksigner: $(ls -l "${APKSIGNER_DIR}/apksigner" | awk '{print $1}')"
+            
+            # CRITICAL FIX: Add this build-tools directory to the PATH for subsequent steps
+            # This makes the PATH change persist across 'run' steps in the same job
+            echo "Adding ${APKSIGNER_DIR} to PATH for this job..."
+            echo "PATH=$PATH:$APKSIGNER_DIR" >> $GITHUB_ENV
+            echo "New PATH: $PATH:$APKSIGNER_DIR" # For immediate verification in logs
           fi
-          echo "--- End Debugging ---"
+          echo "--- End SDK Setup and PATH Configuration ---"
     #  - name: Decrypt keystore
     #    run: openssl aes-256-cbc -K ${{ secrets.ANDROID_KEYSTORE_SSL_KEY }} -iv ${{ secrets.ANDROID_KEYSTORE_SSL_IV }} -in pulsebridge.jks.enc -out pulsebridge.jks -d
       - name: Make gradlew executables
