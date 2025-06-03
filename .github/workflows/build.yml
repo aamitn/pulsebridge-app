@@ -60,7 +60,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - run: yes | sdkmanager 'platforms;android-34'
+      - run: |
+          # Install Android Platform 34 AND the latest Build-Tools to use apksigner (e.g., 34.0.0)
+          yes | sdkmanager 'platforms;android-34' 'build-tools;34.0.0'
     #  - name: Decrypt keystore
     #    run: openssl aes-256-cbc -K ${{ secrets.ANDROID_KEYSTORE_SSL_KEY }} -iv ${{ secrets.ANDROID_KEYSTORE_SSL_IV }} -in pulsebridge.jks.enc -out pulsebridge.jks -d
       - name: Make gradlew executables
