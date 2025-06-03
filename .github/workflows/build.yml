@@ -61,8 +61,33 @@ jobs:
           java-version: '17'
       - uses: android-actions/setup-android@v3
       - run: |
-          # Install Android Platform 34 AND the latest Build-Tools to use apksigner (e.g., 34.0.0)
-          yes | sdkmanager 'platforms;android-34' 'build-tools;34.0.0'
+          echo "--- Running sdkmanager to install components ---"
+          # Ensure both platforms AND build-tools are installed.
+          # apksigner is part of build-tools.
+          yes | sdkmanager 'platforms;android-34' 'build-tools;34.0.0' || { echo "sdkmanager failed. Check above logs for errors."; exit 1; }
+
+          echo "--- Debugging PATH and Android SDK location ---"
+          echo "ANDROID_HOME: ${ANDROID_HOME}"
+          echo "Current PATH: $PATH"
+
+          # List contents of the build-tools directory to see what versions are installed
+          echo "Contents of ${ANDROID_HOME}/build-tools/:"
+          ls -la "${ANDROID_HOME}/build-tools/"
+
+          # Find the exact path to apksigner within build-tools
+          APKSIGNER_EXEC=$(find "${ANDROID_HOME}/build-tools/" -name "apksigner" -type f -print -quit) # Use -print -quit to get first match and stop
+          
+          if [ -z "$APKSIGNER_EXEC" ]; then
+            echo "ERROR: apksigner executable not found in any build-tools version!"
+            exit 1
+          else
+            echo "Found apksigner executable at: $APKSIGNER_EXEC"
+            echo "Permissions of apksigner:"
+            ls -l "$APKSIGNER_EXEC"
+            # Ensure it's executable (should be by default, but doesn't hurt to be sure)
+            chmod +x "$APKSIGNER_EXEC"
+          fi
+          echo "--- End Debugging ---"
     #  - name: Decrypt keystore
     #    run: openssl aes-256-cbc -K ${{ secrets.ANDROID_KEYSTORE_SSL_KEY }} -iv ${{ secrets.ANDROID_KEYSTORE_SSL_IV }} -in pulsebridge.jks.enc -out pulsebridge.jks -d
       - name: Make gradlew executables
