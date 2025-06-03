@@ -44,7 +44,7 @@ jobs:
           # If your keypass is different from storepass, you'll need ANDROID_KEY_PASSWORD secret for it.
           jarsigner -keystore "${{ env.ANDROID_KEYSTORE_PATH }}" --storepass "${{ env.ANDROID_KEYSTORE_PASSWORD }}" ./build/outputs/bundle/genericRelease/*.aab key0
      
-      - name: Sign AAB with Jarsigner
+      - name: Sign APK with Jarsigner
         run: |
           # If your keypass is different from storepass, you'll need ANDROID_KEY_PASSWORD secret for it.
           jarsigner -keystore "${{ env.ANDROID_KEYSTORE_PATH }}" --storepass "${{ env.ANDROID_KEYSTORE_PASSWORD }}" ./build/outputs/apk/generic/release/*.apk key0
