@@ -21,7 +21,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - run: yes | sdkmanager 'platforms;android-34'
+      - run: |
+          yes | sdkmanager 'platforms;android-34' 'build-tools;34.0.0' || { echo "sdkmanager failed. Check above logs for errors."; exit 1; }
+
+          # Find the exact directory where apksigner executable resides
+          APKSIGNER_DIR=$(find "${ANDROID_HOME}/build-tools/" -name "apksigner" -type f -print -quit | xargs dirname)
+          
+          # Add this build-tools directory to the PATH for subsequent steps
+          echo "PATH=$PATH:$APKSIGNER_DIR" >> $GITHUB_ENV
 
       #FDROID FASTLANE METADATA VALIDATION
       - name: Validate Fastlane Supply Metadata
@@ -44,10 +51,10 @@ jobs:
           # If your keypass is different from storepass, you'll need ANDROID_KEY_PASSWORD secret for it.
           jarsigner -keystore "${{ env.ANDROID_KEYSTORE_PATH }}" --storepass "${{ env.ANDROID_KEYSTORE_PASSWORD }}" ./build/outputs/bundle/genericRelease/*.aab key0
      
-      - name: Sign APK with Jarsigner
+      - name: Sign APK with Apksigner
         run: |
           # If your keypass is different from storepass, you'll need ANDROID_KEY_PASSWORD secret for it.
-          jarsigner -keystore "${{ env.ANDROID_KEYSTORE_PATH }}" --storepass "${{ env.ANDROID_KEYSTORE_PASSWORD }}" ./build/outputs/apk/generic/release/*.apk key0
+           apksigner sign --ks "${{ env.ANDROID_KEYSTORE_PATH }}"  --ks-pass pass:"${{ env.ANDROID_KEYSTORE_PASSWORD }}"  --ks-key-alias key0  --key-pass pass:"${{ env.ANDROID_KEYSTORE_PASSWORD }}" ./build/outputs/apk/generic/release/*.apk
 
         env:
           GIT_TAG: ${{ github.ref_name }}

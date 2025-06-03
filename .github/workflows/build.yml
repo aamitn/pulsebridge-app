@@ -61,30 +61,14 @@ jobs:
           java-version: '17'
       - uses: android-actions/setup-android@v3
       - run: |
-          echo "--- Running sdkmanager to install components ---"
           yes | sdkmanager 'platforms;android-34' 'build-tools;34.0.0' || { echo "sdkmanager failed. Check above logs for errors."; exit 1; }
-
-          echo "--- Verifying apksigner and setting PATH ---"
-          echo "ANDROID_HOME: ${ANDROID_HOME}"
-          echo "Current PATH before update: $PATH"
 
           # Find the exact directory where apksigner executable resides
           APKSIGNER_DIR=$(find "${ANDROID_HOME}/build-tools/" -name "apksigner" -type f -print -quit | xargs dirname)
           
-          if [ -z "$APKSIGNER_DIR" ]; then
-            echo "ERROR: apksigner executable not found in any build-tools version!"
-            exit 1
-          else
-            echo "Found apksigner directory: $APKSIGNER_DIR"
-            echo "Permissions of apksigner: $(ls -l "${APKSIGNER_DIR}/apksigner" | awk '{print $1}')"
-            
-            # CRITICAL FIX: Add this build-tools directory to the PATH for subsequent steps
-            # This makes the PATH change persist across 'run' steps in the same job
-            echo "Adding ${APKSIGNER_DIR} to PATH for this job..."
-            echo "PATH=$PATH:$APKSIGNER_DIR" >> $GITHUB_ENV
-            echo "New PATH: $PATH:$APKSIGNER_DIR" # For immediate verification in logs
-          fi
-          echo "--- End SDK Setup and PATH Configuration ---"
+          # Add this build-tools directory to the PATH for subsequent steps
+          echo "PATH=$PATH:$APKSIGNER_DIR" >> $GITHUB_ENV
+
     #  - name: Decrypt keystore
     #    run: openssl aes-256-cbc -K ${{ secrets.ANDROID_KEYSTORE_SSL_KEY }} -iv ${{ secrets.ANDROID_KEYSTORE_SSL_IV }} -in pulsebridge.jks.enc -out pulsebridge.jks -d
       - name: Make gradlew executables

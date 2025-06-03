@@ -104,12 +104,12 @@
 			android:paddingBottom="16dp">
 
 			<Button
-				android:id="@+id/btnCancelSettings"
+				android:id="@+id/btnCancelSettings1"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginEnd="30dp"
-				android:background="#FFFF"
-				android:onClick="g"
+				android:background="#F80505"
+				android:onClick="cancelSettingsEdit"
 				android:paddingLeft="16dp"
 				android:paddingRight="16dp"
 				android:text="@string/btnCancel"
