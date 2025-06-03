@@ -1,10 +1,10 @@
 ## Pulsebridge Gateway App
-
+<img src="./assets/ic_launcher.png" align="left" width="164" >
 This is the Client Application for communicating with [PulseBridge Gateway/Server](https://github.com/aamitn/pulsebridge-gateway)
 
 [![pulsebridge-app build and test](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml/badge.svg)](https://github.com/aamitn/pulsebridge-app/actions/workflows/build.yml)
 
-Download APKs from: https://github.com/aamitn/pulsebridge-app/releases/download/1.1.5/pulsebridge-app-SNAPSHOT-generic-release.apk
+Download Latest APKs/AABs from: [https://github.com/aamitn/pulsebridge-app/releases/latest](https://github.com/aamitn/pulsebridge-app/releases/latest)
 
 ---
 
@@ -19,7 +19,13 @@ An Android application that serves as an SMS gateway. It enables the sending and
 +--------+                 +-----------+
 ```
 
-## Use
+## Screens
+
+<div style="display: flex; justify-content: space-around;">
+    <img src="./assets/Screenshot_20240306_223641.png" width="216" alt="Screen 1">
+    <img src="./assets/Screenshot_20240306_223705.png" width="216" alt="Screen 2">
+    <img src="./assets/Screenshot_20240306_223821.png" width="216" alt="Screen 3">
+</div>
 
 ## Getting Started
 
