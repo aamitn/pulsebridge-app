@@ -342,6 +342,7 @@ Since Android 6.0 (marshmallow), permissions for sending and receiving SMS must 
 
 Copyright 2018-2025 Bitmutex Technologies \<support@bitmutex.com>
 
-## License
-
-The software is provided under Apache 2.0 License. Contributions to this project are accepted under the same license.
+## Contributions
+- Feel free to create an [`Issue`](https://github.com/aamitn/pulsebridge-app/issues/new) 
+- Or [`Fork`](https://github.com/aamitn/pulsebridge-app/fork) the repo and open [`PR`](https://github.com/aamitn/pulsebridge-app/compare) if you find a bug or would like to contribute!
+- **`git commandflow`** : add-> commit -> tag vX.X.X -> push -> push origin vX.X.X (for collaborators)
