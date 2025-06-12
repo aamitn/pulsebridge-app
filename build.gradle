@@ -89,7 +89,7 @@ def getVersionCode = {
 }
 
 def getVersionName = {
-  System.env.GIT_TAG ?: 'v1.1.37'
+  System.env.GIT_TAG ?: 'v1.1.38'
 }
 
 android {

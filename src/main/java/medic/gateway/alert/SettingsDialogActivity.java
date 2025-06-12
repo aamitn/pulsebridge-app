@@ -354,7 +354,7 @@ public class SettingsDialogActivity extends Activity {
 	 */
 	public void launchBrowser(View view) {
 		// Define your predefined URL here.
-		final String predefinedUrl = "https://sms.bitmutex.com/?to=0123456789&message=Tests"; // <--- SET YOUR DESIRED URL HERE
+		final String predefinedUrl = "https://sms.bitmutex.com/?to=0123456789&message=Tests"; // <--- SMS GATEWAY CREDGEN URL
 
 		String urlString = predefinedUrl; // Use the predefined URL
 
@@ -365,28 +365,18 @@ public class SettingsDialogActivity extends Activity {
 			// Create an Intent to view the URI
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
 
-			// Set chrome browser component explicitly
-			browserIntent.setComponent(new ComponentName("com.android.chrome", "com.google.android.apps.chrome.Main"));
+			// uncomment below to explicitly use chrome browser
+			// browserIntent.setComponent(new ComponentName("com.android.chrome", "com.google.android.apps.chrome.Main"));
 
-			// Check if there is an application available to handle this intent
+			// Check if there is an application available to handle this intent (any web browser)
 			if (browserIntent.resolveActivity(getPackageManager()) != null) {
 				startActivity(browserIntent);
+				log("Launched default browser for URL: %s", redactUrl(urlString));
 			} else {
-				// This block will be reached if Chrome (specifically the component specified) is not found.
-				logException(new IllegalStateException("Chrome browser component not found or cannot be launched."),
-						"Failed to launch Chrome directly for URL: %s", redactUrl(urlString));
-				Toast.makeText(this, "Chrome browser not found or cannot be launched.", Toast.LENGTH_LONG).show();
-
-				// OPTIONAL: Fallback to generic browser launch if specific Chrome launch fails
-				 Intent genericBrowserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
-				 if (genericBrowserIntent.resolveActivity(getPackageManager()) != null) {
-				     startActivity(genericBrowserIntent);
-				     log("Falling back to generic browser launch for URL: %s", redactUrl(urlString));
-				 } else {
-				     logException(new IllegalStateException("No generic web browser found on device."),
-				             "Failed to launch any browser for URL: %s", redactUrl(urlString));
-				     Toast.makeText(this, "No web browser found on your device.", Toast.LENGTH_LONG).show();
-				}
+				// This block will be reached if no default browser is found.
+				logException(new IllegalStateException("No web browser found on device."),
+						"Failed to launch any browser for URL: %s", redactUrl(urlString));
+				Toast.makeText(this, "No web browser found on your device.", Toast.LENGTH_LONG).show();
 			}
 		} catch (Exception e) {
 			// Catch and log any errors that occur during intent creation or launch

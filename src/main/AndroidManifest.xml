@@ -26,9 +26,28 @@
 	       https://github.com/medic/cht-gateway/issues/103 -->
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
+
+	<!-- Required by launchBrowser in SettingsDialogActivity.java  -->
+	<queries>
+		<!-- For general web browsing intents -->
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<data android:scheme="http" />
+		</intent>
+
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<data android:scheme="https" />
+		</intent>
+		<!-- Uncomment the below line if Specifically declare the need to see the Chrome package if you explicitly target it -->
+		<!-- <package android:name="com.android.chrome" /> -->
+	</queries>
+
+<!-- Remove  old: android:allowBackup="false" from below-->
 	<application android:label="@string/app_name"
 			android:icon="@mipmap/ic_launcher"
-			android:allowBackup="false"
 			android:supportsRtl="false"
 			tools:ignore="GoogleAppIndexingWarning">
 		<activity android:name="StartupActivity"
